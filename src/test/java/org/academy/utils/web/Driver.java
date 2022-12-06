@@ -7,18 +7,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Driver {
     private WebDriver driver;
-    public Driver(String browser) {
-        switch (browser.toLowerCase()) {
-            case "chrome":
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
-                break;
-        }
+
+    public Driver() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
     }
+
     public WebDriver getDriver() {
         return driver;
     }

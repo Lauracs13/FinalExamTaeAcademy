@@ -39,8 +39,6 @@ public class BaseScreen {
         PageFactory.initElements(new AppiumFieldDecorator(
                 driver, Duration.ofSeconds(0)), this);
     }
-
-
     /**
      * Gets driver.
      *
@@ -82,7 +80,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public void tap(AndroidElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
@@ -95,7 +93,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public void tap(AndroidElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 15);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
@@ -109,7 +107,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public void sendKeys(AndroidElement element, String sequence) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 15);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(sequence);
     }
@@ -122,7 +120,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public boolean isElementAvailable(AndroidElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 3);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;
@@ -140,7 +138,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public boolean isElementAvailable(AndroidElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;

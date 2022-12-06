@@ -16,6 +16,8 @@ public class HomePage extends BasePage {
     private WebElement loginModal;
     @FindBy(id = "oneid-iframe")
     private WebElement loginIframe;
+    @FindBy(css = "form.default-view")
+    private WebElement homePageDefaultView;
     @FindBy(id = "logo")
     private WebElement espnLogo;
     @FindBy(css = ".input-InputLoginValue")
@@ -26,6 +28,8 @@ public class HomePage extends BasePage {
     private WebElement btnSubmit;
     @FindBy(css = "form.delete-profile-success button#BtnSubmit")
     private WebElement btnSubmit2;
+    @FindBy(id = "Title")
+    private WebElement signUpTitle;
     @FindBy(id = "BtnCreateAccount")
     private WebElement signUpButton;
     @FindBy(id = "InputFirstName")
@@ -97,12 +101,39 @@ public class HomePage extends BasePage {
         super.waitForVisibility(this.btnSubmit);
         return this.btnSubmit.isDisplayed();
     }
-
     public boolean isSignUpButtonPresent() {
         super.waitForVisibility(this.signUpButton);
         return this.signUpButton.isDisplayed();
     }
+    public boolean isFirstNameInputPresent() {
+        super.waitForVisibility(this.inputFirstName);
+        return this.inputFirstName.isDisplayed();
+    }
+    public boolean isLastNameInputPresent() {
+        super.waitForVisibility(this.inputLastName);
+        return this.inputLastName.isDisplayed();
+    }
+    public boolean isEmailInputPresent() {
+        super.waitForVisibility(this.inputEmail);
+        return this.inputEmail.isDisplayed();
+    }
+    public boolean isPasswordInputPresent() {
+        super.waitForVisibility(this.inputNewPassword);
+        return this.inputNewPassword.isDisplayed();
+    }
+    public boolean isSubmitPresent() {
+        super.waitForVisibility(this.btnSubmit);
+        return this.btnSubmit.isDisplayed();
+    }
+    public boolean isCloseButtonPresent() {
+        super.waitForVisibility(this.closeModalLogin);
+        return this.closeModalLogin.isDisplayed();
+    }
 
+    public boolean isDefaultHomePageDisplayed() {
+        super.waitForVisibility(this.homePageDefaultView);
+        return this.homePageDefaultView.isDisplayed();
+    }
     public void clickOnSignUpButton() {
         super.clickElement(this.signUpButton);
     }
@@ -168,6 +199,11 @@ public class HomePage extends BasePage {
     public String modalTitleText() {
         super.waitForVisibility(this.modalTitle);
         return this.modalTitle.getText();
+    }
+
+    public String signUpTitleText() {
+        super.waitForVisibility(this.signUpTitle);
+        return this.signUpTitle.getText();
     }
 
     public WatchPage switchToWatchPage() {
