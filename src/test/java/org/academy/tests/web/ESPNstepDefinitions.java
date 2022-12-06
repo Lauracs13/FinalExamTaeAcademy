@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.academy.pageObjects.pages.HomePage;
+import org.academy.pageObjects.pages.WatchPage;
 import org.academy.utils.web.Driver;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
@@ -14,15 +15,16 @@ import static java.lang.String.format;
 public class ESPNstepDefinitions {
     private Driver driver;
     private HomePage homepage;
-
+    private WatchPage watchpage;
     public Logger log = Logger.getLogger(ESPNstepDefinitions.class);
 
     private final String URL = "https://www.espnqa.com/?src=com&_adblock=true&espn=cloud";
-    private static final String FIRSTNAME = "pepa";
+    private static final String FIRSTNAME = "prueba";
     private static final String LASTNAME = "perez";
-    private final String PASSWORD = "pepaPerez1";
-    private static String email = FIRSTNAME + "." + LASTNAME + (int) Math.floor(Math.random() * 10000) + "@email.com";
-
+    //private final String PASSWORD = "pepaPerez1@";
+    private final String PASSWORD ="nuevacontrasena@";
+   // private static String email = FIRSTNAME + "." + LASTNAME + (int) Math.floor(Math.random() * 10000) + "@email.com";
+   private static String email = "nuevacontrasena@email.com";
     @Given("user is on the ESPN landing page")
     public void userIsOnTheESPNLandingPage() {
         driver = new Driver();
@@ -32,6 +34,7 @@ public class ESPNstepDefinitions {
         driver.getDriver().get(URL);
         driver.getDriver().manage().window().maximize();
         homepage = new HomePage(driver.getDriver());
+        homepage.closePromoBannerIfExists();
     }
     @Given("user sees the dropdown user menu")
     public void userSeesTheDropdownUserMenu() {
@@ -51,7 +54,6 @@ public class ESPNstepDefinitions {
         log.info("Validate Sign up button is displayed");
         Assert.assertTrue(homepage.isLogInButtonPresent(), "Sign up button is not displayed");
     }
-
     @Given("user sees the login modal")
     public void userSeesTheLoginModal() {
         homepage.hoverTheMouseOnUserIcon();
@@ -59,12 +61,10 @@ public class ESPNstepDefinitions {
         homepage.switchToLoginIframe();
 
     }
-
     @When("user clicks on the sign up button")
     public void userClicksOnTheSignUpButton() {
         homepage.clickOnSignUpButton();
     }
-
     @Then("sign up elements are displayed")
     public void signUpElementsAreDisplayed() {
         log.info("Validate Sign Up title");
@@ -82,20 +82,99 @@ public class ESPNstepDefinitions {
         log.info("Validate Close icon is displayed");
         Assert.assertTrue(homepage.isPasswordInputPresent(), "Close icon is not displayed");
     }
-
     @Given("user sees the sign up modal")
     public void userSeesTheSignUpModal() {
+        homepage.hoverTheMouseOnUserIcon();
+        homepage.clickOnLogInOption();
+        homepage.switchToLoginIframe();
+        homepage.clickOnSignUpButton();
     }
-
     @When("user enters valid information in the form")
     public void userEntersValidInformationInTheForm() {
+        homepage.typeTheFirstName(FIRSTNAME);
+        homepage.typeTheLastName(LASTNAME);
+        homepage.typeTheEmail(email);
+        homepage.typeTheNewPassword(PASSWORD);
+        homepage.scrollToBottom();
     }
-
-    @And("user click on the submit sign up button")
-    public void userClickOnTheSubmitSignUpButton() {
+    @And("user clicks on sign up button")
+    public void userClicksOnSignUpButton() {
+        homepage.clickOnSubmitButton();
+        homepage.waitForLoginSuccess();
     }
-
     @Then("the sign up modal disappears")
     public void theSignUpModalDisappears() {
+        log.info("Validate that the sign up modal disappears");
+        Assert.assertTrue(homepage.isDefaultHomePageDisplayed(), "the sign up modal still appears");
+    }
+    @Given("user is logged")
+    public void userIsLogged() {
+        homepage.hoverTheMouseOnUserIcon();
+        homepage.clickOnLogInOption();
+        homepage.switchToLoginIframe();
+        homepage.clickOnUsername();
+        homepage.typeTheUsername(email);
+        homepage.clickOnPassword();
+        homepage.typeThePassword(this.PASSWORD);
+        homepage.clickOnSubmitButton();
+    }
+    @When("user clicks on Watch option")
+    public void userClicksOnWatchOption() {
+         watchpage = homepage.switchToWatchPage();
+    }
+    @Then("at least one carousel is present")
+    public void atLeastOneCarouselIsPresent() {
+        log.info("Validate that at least one carousel is present");
+        Assert.assertTrue( watchpage.isFirstCarouselDisplayed(), "the first carousel is not displayed");
+    }
+    @And("each card in the carousel has a title and a small description")
+    public void eachCardInTheCarouselHasATitleAndASmallDescription() {
+        log.info("Validate all cards from first carousel have title");
+        Assert.assertTrue( watchpage.haveAllCardsTitle(), "the title is not displayed in all the cards");
+        log.info("Validate all cards from first carousel have description");
+        Assert.assertTrue( watchpage.haveAllCardsDescription(), "the description is not displayed in all the cards");
+    }
+    @And("User is on the Watch page")
+    public void userIsOnTheWatchPage() {
+        watchpage = homepage.switchToWatchPage();
+    }
+    @When("user clicks on the second card")
+    public void userClicksOnTheSecondCard() {
+        watchpage.clickOnSecondCard();
+    }
+    @And("user clicks on x button")
+    public void userClicksOnXButton() {
+        log.info("Validate the 'x' button to close is displayed");
+        Assert.assertTrue( watchpage.isCloseModalButton(), "the 'x' button to close is not displayed");
+        watchpage.clickOnCloseModalButton();
+
+    }
+    @Then("the card modal disappears")
+    public void theCardModalDisappears() {
+        log.info("Validate card modal is not displayed");
+        Assert.assertFalse( watchpage.isCardModalDisplayed(), "card modal is displayed");
+        homepage = watchpage.goBackToHomePage();
+    }
+
+    @When("user verifies his name in the user menu")
+    public void userVerifiesHisNameInTheUserMenu() {
+        homepage.hoverTheMouseOnUserIcon();
+        log.info("Validate the element 'Nav text' has the username");
+        Assert.assertEquals(homepage.navText(), "Welcome" + FIRSTNAME + "!", "the element 'Nav text' do not have the username");
+        homepage.closePromoBannerIfExists();
+    }
+
+    @And("user clicks on log out")
+    public void userClicksOnLogOut() {
+        homepage.hoverTheMouseOnUserIcon();
+        homepage.clickOnLogOutOption();
+        homepage.waitForLogOut();
+           }
+
+    @Then("the username disappears")
+    public void theUsernameDisappears() {
+        homepage.hoverTheMouseOnUserIcon();
+        log.info("Validate the element 'Nav text' do not have the username");
+        Assert.assertEquals(homepage.navText(), "Welcome!", "the element 'Nav text' still has the username");
     }
 }

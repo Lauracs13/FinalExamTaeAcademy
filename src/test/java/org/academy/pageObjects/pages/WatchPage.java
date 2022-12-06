@@ -14,6 +14,8 @@ public class WatchPage extends BasePage{
     private WebElement firstCarousel;
     @FindBy(css = "section.BucketsContainer > div:first-child ul.Carousel__Inner li:nth-child(2) > a")
     private WebElement secondCard;
+    @FindBy(css = ".lightbox__wrapper")
+    private WebElement cardModal;
     @FindBy(css = "svg.icon--color > use")
     private WebElement closeModalButton;
 
@@ -23,6 +25,13 @@ public class WatchPage extends BasePage{
 
     public List<WebElement> getFirstCarouselContent() {
         return this.firstCarousel.findElements(By.cssSelector("a"));
+    }
+    public boolean isFirstCarouselDisplayed() {
+        super.waitForVisibility(this.firstCarousel);
+        return this.firstCarousel.isDisplayed();
+    }
+    public boolean isCardModalDisplayed() {
+       return this.cardModal.isDisplayed();
     }
     public boolean haveAllCardsTitle() {
         Stream<Boolean> withTitles = this.getFirstCarouselContent().stream().map(element -> {

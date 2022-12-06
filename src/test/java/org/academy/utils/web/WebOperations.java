@@ -16,7 +16,7 @@ public class WebOperations {
 
     public WebOperations(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(50L));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20L));
         initElements(driver, this);
     }
 
@@ -55,5 +55,8 @@ public class WebOperations {
 
     public void waitForAttributeValue(WebElement element, String attribute, String value) {
         this.wait.until(ExpectedConditions.attributeToBe(element, attribute, value));
+    }
+    public void waitForInvisibility(WebElement element) {
+        this.wait.until(ExpectedConditions.invisibilityOf(element));
     }
 }

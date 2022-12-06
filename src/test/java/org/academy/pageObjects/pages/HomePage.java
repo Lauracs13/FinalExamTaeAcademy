@@ -10,6 +10,8 @@ public class HomePage extends BasePage {
 
     @FindBy(id = "global-user-trigger")
     private WebElement userIcon;
+    @FindBy(id = "li.hover")
+    private WebElement userMenu;
     @FindBy(css = "#global-header .tools .global-user-container>ul:first-child>li:last-child>a")
     private WebElement loginElement;
     @FindBy(css = ".view-starry-night >div:first-child")
@@ -44,7 +46,7 @@ public class HomePage extends BasePage {
     private WebElement espnProfileOption;
     @FindBy(id = "close")
     private WebElement closeModalLogin;
-    @FindBy(css = "#global-header .tools .global-user-container>ul:first-child:not(.alt-format)>li.display-user>span")
+    @FindBy(css = "div.global-user:last-child ul.account-management li.display-user")
     private WebElement welcomeUserMessage;
     @FindBy(css = "li.watch > a")
     private WebElement watchOption;
@@ -64,7 +66,7 @@ public class HomePage extends BasePage {
     }
     public void hoverTheMouseOnUserIcon() {
         super.waitForVisibility(this.userIcon);
-        super.hoverTheMouseOnElement(this.userIcon);
+                    super.hoverTheMouseOnElement(this.userIcon);
     }
 
     public void clickOnLogInOption() {
@@ -73,6 +75,10 @@ public class HomePage extends BasePage {
 
     public void clickOnLogOutOption() {
         super.clickElement(this.loginElement);
+    }
+    public void waitForLogOut() {
+        super.waitForInvisibility(this.userMenu);
+        super.waitForAttributeValue(this.alternativeLogIn, "style", "display: block;");
     }
 
     public void switchToLoginIframe() {
@@ -238,6 +244,8 @@ public class HomePage extends BasePage {
 
     public void waitForDeactivateAccountSuccess() {
         super.waitForAttributeValue(this.alternativeLogIn, "style", "display: block;");
+
+
     }
 
 }
