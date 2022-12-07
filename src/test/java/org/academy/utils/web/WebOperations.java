@@ -58,5 +58,5 @@ public class WebOperations {
     }
     public void waitForInvisibility(WebElement element) {
         this.wait.until(ExpectedConditions.invisibilityOf(element));
-    }
+        }
 }

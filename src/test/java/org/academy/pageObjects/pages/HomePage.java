@@ -16,9 +16,12 @@ public class HomePage extends BasePage {
     private WebElement loginElement;
     @FindBy(css = ".view-starry-night >div:first-child")
     private WebElement loginModal;
+
     @FindBy(id = "oneid-iframe")
     private WebElement loginIframe;
-    @FindBy(css = "form.default-view")
+    @FindBy(id = "oneid-wrapper")
+    private WebElement loginWrapper;
+    @FindBy(css = "header.default-view")
     private WebElement homePageDefaultView;
     @FindBy(id = "logo")
     private WebElement espnLogo;
@@ -103,6 +106,7 @@ public class HomePage extends BasePage {
         return this.espnLogo.isDisplayed();
     }
 
+
     public boolean isLogInButtonPresent() {
         super.waitForVisibility(this.btnSubmit);
         return this.btnSubmit.isDisplayed();
@@ -154,6 +158,7 @@ public class HomePage extends BasePage {
 
     public void clickOnSubmitButton() {
         super.waitForVisibility(this.btnSubmit);
+        super.hoverTheMouseOnElement(this.btnSubmit);
         super.clickElement(this.btnSubmit);
     }
 
@@ -206,6 +211,10 @@ public class HomePage extends BasePage {
         super.waitForVisibility(this.modalTitle);
         return this.modalTitle.getText();
     }
+    public String getLoginModalAttribute() {
+       return this.loginWrapper.getAttribute("style");
+    }
+
 
     public String signUpTitleText() {
         super.waitForVisibility(this.signUpTitle);
