@@ -1,11 +1,14 @@
 package org.academy.tests.web;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.academy.pageObjects.pages.HomePage;
 import org.academy.pageObjects.pages.WatchPage;
+import org.academy.utils.web.EspnWebDriver;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -13,8 +16,7 @@ import org.testng.Assert;
 import static java.lang.String.format;
 
 public class EspnStepDefinitions {
-    private HomePage homepage;
-    private WatchPage watchpage;
+
     public Logger log = Logger.getLogger(EspnStepDefinitions.class);
     private static final String FIRSTNAME = "prueba";
     private static final String LASTNAME = "perez";
@@ -23,11 +25,31 @@ public class EspnStepDefinitions {
     //private static String email = FIRSTNAME + "." + LASTNAME + (int) Math.floor(Math.random() * 10000) + "@email.com";
     private static String email = "prueba.perez9256@email.com";
 
+    private EspnWebDriver driver;
+    public HomePage homepage;
+    public WatchPage watchpage;
+
+    private final String URL = "https://www.espnqa.com/?src=com&_adblock=true&espn=cloud";
+
+    @Before
+    public void setUpBefore(){
+
+        driver = new EspnWebDriver();
+        driver.getDriver().manage().deleteAllCookies();
+        driver.getDriver().get(URL);
+        driver.getDriver().manage().window().maximize();
+        homepage = new HomePage(driver.getDriver());
+
+    }
+
+    @After
+    public void tearDown() {
+        driver.getDriver().quit();
+    }
     @Given("user is on the ESPN landing page")
     public void userIsOnTheESPNLandingPage() {
 
-        homepage = new HomePage((WebDriver) EspnHooks.getDriver());
-        homepage.closePromoBannerIfExists();
+    homepage.closePromoBannerIfExists();
     }
 
     @Given("user sees the dropdown user menu")
@@ -37,7 +59,7 @@ public class EspnStepDefinitions {
 
     @When("user clicks on the login option")
     public void userClicksOnTheLoginOption() {
-        homepage.clickOnLogInOption();
+       homepage.clickOnLogInOption();
         homepage.switchToLoginIframe();
     }
 
