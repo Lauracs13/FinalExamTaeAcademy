@@ -14,6 +14,7 @@ public class WebOperations {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
+
     public WebOperations(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20L));

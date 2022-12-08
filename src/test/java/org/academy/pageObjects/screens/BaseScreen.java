@@ -79,7 +79,7 @@ public class BaseScreen {
      * @param timeout the timeout
      * @author Hans.Marquez
      */
-    public void tap(AndroidElement element, int timeout) {
+    public void tap(AndroidElement element, long timeout) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
@@ -93,7 +93,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public void tap(AndroidElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15L));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
@@ -107,7 +107,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public void sendKeys(AndroidElement element, String sequence) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15L));
         wait.until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(sequence);
     }
@@ -120,7 +120,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public boolean isElementAvailable(AndroidElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3L));
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;
@@ -137,7 +137,7 @@ public class BaseScreen {
      * @return the boolean
      * @author Hans.Marquez
      */
-    public boolean isElementAvailable(AndroidElement element, int timeout) {
+    public boolean isElementAvailable(AndroidElement element, long timeout) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
         try {
             wait.until(ExpectedConditions.visibilityOf(element));

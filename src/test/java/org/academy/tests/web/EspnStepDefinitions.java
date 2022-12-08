@@ -2,6 +2,7 @@ package org.academy.tests.web;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -32,14 +33,16 @@ public class EspnStepDefinitions {
     private final String URL = "https://www.espnqa.com/?src=com&_adblock=true&espn=cloud";
 
     @Before
-    public void setUpBefore(){
-
+    public void setUpBefore(Scenario scenario){
+        scenario.getSourceTagNames().stream().forEach(tag -> {
+            if (tag.equals("@web")) {
         driver = new EspnWebDriver();
         driver.getDriver().manage().deleteAllCookies();
         driver.getDriver().get(URL);
         driver.getDriver().manage().window().maximize();
         homepage = new HomePage(driver.getDriver());
-
+            }
+        });
     }
 
     @After
