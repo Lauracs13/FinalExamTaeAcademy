@@ -34,21 +34,12 @@ public class TutorialScreen extends BaseScreen {
     private AndroidElement allowAccessWhileUsingAppBtn;
 
     /**
-     * Start permissions process.
-     *
-     * @author Hans.Marquez  Start permissions process.
-     */
-    public void startPermissionsProcess() {
-        tap(getStartedBtn);
-    }
-
-    /**
-     * Share location permissions dashboard screen.
+     * Initial steps to reach the dashboard screen
      *
      * @return the dashboard screen
-     * @author Hans.Marquez  Share Location permissions process.
      */
-    public DashboardScreen shareLocationPermissions() {
+    public DashboardScreen loadDashBoardScreen() {
+        tap(getStartedBtn);
         tap(shareLocationBtn);
         tap(allowLocationBtn);
         tap(allowAccessWhileUsingAppBtn);

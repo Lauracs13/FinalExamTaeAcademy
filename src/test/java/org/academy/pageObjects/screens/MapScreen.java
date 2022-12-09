@@ -7,7 +7,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import java.util.ArrayList;
 
 /**
- * Map screen.
+ * The Map screen class.
  */
 public class MapScreen extends BaseScreen {
 
@@ -25,10 +25,8 @@ public class MapScreen extends BaseScreen {
     private AndroidElement mapContainer;
     @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*categoryTitle\")")
     private AndroidElement categoryListBtn;
-
     @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.LinearLayout\")")
     private ArrayList<AndroidElement> categoryListContainer;
-
     @AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.LinearLayout\").descriptionContains(\"Hotels\")")
     private AndroidElement hotelsBtn;
 

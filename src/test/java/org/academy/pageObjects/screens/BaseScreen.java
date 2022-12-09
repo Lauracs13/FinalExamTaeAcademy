@@ -17,6 +17,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * The Base screen class.
+ */
 public class BaseScreen {
     /**
      * The driver.
@@ -39,6 +42,7 @@ public class BaseScreen {
         PageFactory.initElements(new AppiumFieldDecorator(
                 driver, Duration.ofSeconds(0)), this);
     }
+
     /**
      * Gets driver.
      *
@@ -71,7 +75,6 @@ public class BaseScreen {
         } catch (InvalidSelectorException e) {
         }
     }
-
     /**
      * Wrapper for click  event specifying custom wait.
      *
@@ -79,13 +82,11 @@ public class BaseScreen {
      * @param timeout the timeout
      * @author Hans.Marquez
      */
-    public void tap(AndroidElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
+    public void tap(AndroidElement element, long timeout) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
-
-
     /**
      * Wrapper for click event.
      *
@@ -93,23 +94,9 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public void tap(AndroidElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 15L);
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
-    }
-
-
-    /**
-     * Wrapper for sendKeys event.
-     *
-     * @param element  : AndroidElement
-     * @param sequence : String
-     * @author Hans.Marquez
-     */
-    public void sendKeys(AndroidElement element, String sequence) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(sequence);
     }
 
     /**
@@ -120,7 +107,7 @@ public class BaseScreen {
      * @author Hans.Marquez
      */
     public boolean isElementAvailable(AndroidElement element) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 3L);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;
@@ -137,8 +124,8 @@ public class BaseScreen {
      * @return the boolean
      * @author Hans.Marquez
      */
-    public boolean isElementAvailable(AndroidElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(timeout));
+    public boolean isElementAvailable(AndroidElement element, long timeout) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), timeout);
         try {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;

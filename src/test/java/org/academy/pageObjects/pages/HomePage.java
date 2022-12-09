@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * The Homepage class.
+ */
 public class HomePage extends BasePage {
 
     @FindBy(id = "global-user-trigger")
@@ -14,15 +17,8 @@ public class HomePage extends BasePage {
     private WebElement userMenu;
     @FindBy(css = "#global-header .tools .global-user-container>ul:first-child>li:last-child>a")
     private WebElement loginElement;
-    @FindBy(css = ".view-starry-night >div:first-child")
-    private WebElement loginModal;
-
     @FindBy(id = "oneid-iframe")
     private WebElement loginIframe;
-    @FindBy(id = "oneid-wrapper")
-    private WebElement loginWrapper;
-    @FindBy(css = "header.default-view")
-    private WebElement homePageDefaultView;
     @FindBy(id = "logo")
     private WebElement espnLogo;
     @FindBy(css = ".input-InputLoginValue")
@@ -45,186 +41,239 @@ public class HomePage extends BasePage {
     private WebElement inputEmail;
     @FindBy(id = "password-new")
     private WebElement inputNewPassword;
-    @FindBy(css = "#global-header .tools .global-user-container:last-child>ul:first-child>li:nth-child(5)>a")
-    private WebElement espnProfileOption;
-    @FindBy(id = "close")
-    private WebElement closeModalLogin;
     @FindBy(css = "div.global-user:last-child ul.account-management li.display-user")
     private WebElement welcomeUserMessage;
     @FindBy(css = "li.watch > a")
     private WebElement watchOption;
     @FindBy(id = "sideLogin-left-rail")
     private WebElement alternativeLogIn;
-    @FindBy(css = "a#AccountDeleteLink")
-    private WebElement accountDeleteLink;
-    @FindBy(css = "h2#Title")
-    private WebElement modalTitle;
-    @FindBy(id = "sideLogin-left-rail")
+       @FindBy(id = "sideLogin-left-rail")
     private WebElement divOneIdWrapper;
-    @FindBy(css = "p.text-left + button#BtnSubmit")
-    private WebElement confirmDeleteAccountBtn;
 
+
+    /**
+     * Constructor method.
+     *
+     * @param driver the driver
+     */
     public HomePage(WebDriver driver) {
         super(driver);
     }
+
+    /**
+     * Hover the mouse on user icon.
+     */
     public void hoverTheMouseOnUserIcon() {
         super.waitForVisibility(this.userIcon);
-                    super.hoverTheMouseOnElement(this.userIcon);
+        super.hoverTheMouseOnElement(this.userIcon);
     }
 
+    /**
+     * Click on log in option.
+     */
     public void clickOnLogInOption() {
         super.clickElement(this.loginElement);
     }
 
+    /**
+     * Click on log out option.
+     */
     public void clickOnLogOutOption() {
         super.clickElement(this.loginElement);
     }
+
+    /**
+     * Wait for log out.
+     */
     public void waitForLogOut() {
         super.waitForInvisibility(this.userMenu);
         super.waitForAttributeValue(this.alternativeLogIn, "style", "display: block;");
     }
 
+    /**
+     * Switch to login iframe.
+     */
     public void switchToLoginIframe() {
         super.getDriver().switchTo().frame(this.loginIframe);
     }
 
-    public void exitTheIFrame() {
-        super.getDriver().switchTo().defaultContent();
-    }
-
-    public void closeModalLogin() {
-        super.clickElement(this.closeModalLogin);
-    }
-
-    public boolean isLoginModalPresent() {
-        super.waitForVisibility(this.loginModal);
-        return this.loginModal.isDisplayed();
-    }
-
+    /**
+     * Checks if ESPN logo is displayed.
+     *
+     * @return the boolean
+     */
     public boolean isESPNLogoPresent() {
         super.waitForVisibility(this.espnLogo);
         return this.espnLogo.isDisplayed();
     }
 
-
+    /**
+     * Checks if login button is displayed.
+     *
+     * @return the boolean
+     */
     public boolean isLogInButtonPresent() {
         super.waitForVisibility(this.btnSubmit);
         return this.btnSubmit.isDisplayed();
     }
-    public boolean isSignUpButtonPresent() {
-        super.waitForVisibility(this.signUpButton);
-        return this.signUpButton.isDisplayed();
-    }
+
+    /**
+     * Checks if First Name input is displayed.
+     *
+     * @return the boolean
+     */
     public boolean isFirstNameInputPresent() {
         super.waitForVisibility(this.inputFirstName);
         return this.inputFirstName.isDisplayed();
     }
+
+    /**
+     * Checks if Last Name input is displayed.
+     *
+     * @return the boolean
+     */
     public boolean isLastNameInputPresent() {
         super.waitForVisibility(this.inputLastName);
         return this.inputLastName.isDisplayed();
     }
+
+    /**
+     * Checks if Email input is displayed.
+     *
+     * @return the boolean
+     */
     public boolean isEmailInputPresent() {
         super.waitForVisibility(this.inputEmail);
         return this.inputEmail.isDisplayed();
     }
+
+    /**
+     * Checks if Password input is displayed.
+     *
+     * @return the boolean
+     */
     public boolean isPasswordInputPresent() {
         super.waitForVisibility(this.inputNewPassword);
         return this.inputNewPassword.isDisplayed();
     }
-    public boolean isSubmitPresent() {
-        super.waitForVisibility(this.btnSubmit);
-        return this.btnSubmit.isDisplayed();
-    }
-    public boolean isCloseButtonPresent() {
-        super.waitForVisibility(this.closeModalLogin);
-        return this.closeModalLogin.isDisplayed();
-    }
 
-    public boolean isDefaultHomePageDisplayed() {
-        super.waitForVisibility(this.homePageDefaultView);
-        return this.homePageDefaultView.isDisplayed();
-    }
+    /**
+     * Click on sign up button.
+     */
     public void clickOnSignUpButton() {
         super.clickElement(this.signUpButton);
     }
 
+    /**
+     * Click on username.
+     */
     public void clickOnUsername() {
         super.clickElement(this.usernameInput);
     }
 
+    /**
+     * Click on password.
+     */
     public void clickOnPassword() {
         super.clickElement(this.loginPassword);
     }
 
+    /**
+     * Click on submit button.
+     */
     public void clickOnSubmitButton() {
         super.waitForVisibility(this.btnSubmit);
         super.hoverTheMouseOnElement(this.btnSubmit);
         super.clickElement(this.btnSubmit);
     }
 
-    public void clickOnConfirm() {
-        super.clickElement(this.btnSubmit2);
-    }
-
-    public void clickOnEspnProfile() {
-        super.clickElement(this.espnProfileOption);
-    }
-
-    public void clickOnDeleteAccountLink() {
-        super.clickElement(this.accountDeleteLink);
-    }
-
-    public void clickOnConfirmDeleteAccount() {
-        super.clickElement(this.confirmDeleteAccountBtn);
-    }
-
+    /**
+     * Type the username.
+     *
+     * @param text the text
+     */
     public void typeTheUsername(String text) {
         super.typeOnInput(this.usernameInput, text);
     }
 
+    /**
+     * Type the password.
+     *
+     * @param text the text
+     */
     public void typeThePassword(String text) {
         super.typeOnInput(this.loginPassword, text);
     }
 
+    /**
+     * Type the first name.
+     *
+     * @param text the text
+     */
     public void typeTheFirstName(String text) {
         super.typeOnInput(this.inputFirstName, text);
     }
 
+    /**
+     * Type the last name.
+     *
+     * @param text the text
+     */
     public void typeTheLastName(String text) {
         super.typeOnInput(this.inputLastName, text);
     }
 
+    /**
+     * Type the email.
+     *
+     * @param text the text
+     */
     public void typeTheEmail(String text) {
         super.typeOnInput(this.inputEmail, text);
     }
 
+    /**
+     * Type the new password.
+     *
+     * @param text the text
+     */
     public void typeTheNewPassword(String text) {
         super.typeOnInput(this.inputNewPassword, text);
     }
 
+    /**
+     * Gets the text of the Welcome message in the user menu
+     *
+     * @return the string
+     */
     public String navText() {
         super.waitForVisibility(this.welcomeUserMessage);
         return this.welcomeUserMessage.getText();
     }
 
-    public String modalTitleText() {
-        super.waitForVisibility(this.modalTitle);
-        return this.modalTitle.getText();
-    }
-    public String getLoginModalAttribute() {
-       return this.loginWrapper.getAttribute("style");
-    }
-
-
+    /**
+     * Gets the text of the Sign Up modal
+     *
+     * @return the string
+     */
     public String signUpTitleText() {
         super.waitForVisibility(this.signUpTitle);
         return this.signUpTitle.getText();
     }
 
+    /**
+     * Click on Watch option
+     *
+     * @return the watch page
+     */
     public WatchPage switchToWatchPage() {
         super.clickElement(this.watchOption);
         return new WatchPage(getDriver());
     }
+
+    /**
+     * Close promo banner if exists.
+     */
     public void closePromoBannerIfExists() {
 
         boolean isPromoBannerShown;
@@ -247,14 +296,11 @@ public class HomePage extends BasePage {
         super.scrollToBottom();
     }
 
+    /**
+     * Wait for login success.
+     */
     public void waitForLoginSuccess() {
         super.waitForAttributeValue(this.divOneIdWrapper, "style", "display: none;");
-    }
-
-    public void waitForDeactivateAccountSuccess() {
-        super.waitForAttributeValue(this.alternativeLogIn, "style", "display: block;");
-
-
     }
 
 }
