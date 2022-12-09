@@ -1,8 +1,5 @@
 package org.academy.tests.web;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,26 +8,18 @@ import org.academy.pageObjects.pages.HomePage;
 import org.academy.pageObjects.pages.WatchPage;
 import org.academy.utils.web.EspnWebDriver;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import static java.lang.String.format;
+import static org.academy.utils.mobile.StringUtils.*;
 
 public class EspnStepDefinitions {
 
     public Logger log = Logger.getLogger(EspnStepDefinitions.class);
-    private static final String FIRSTNAME = "prueba";
-    private static final String LASTNAME = "perez";
-    //private final String PASSWORD = "pepaPerez1@";
-    private final String PASSWORD = "nuevacontrasena@";
-    //private static String email = FIRSTNAME + "." + LASTNAME + (int) Math.floor(Math.random() * 10000) + "@email.com";
-    private static String email = "prueba.perez9256@email.com";
-
-    private EspnWebDriver driver;
     public HomePage homepage = WebHooks.getHomePage();
     public WatchPage watchpage;
 
     private final String URL = "https://www.espnqa.com/?src=com&_adblock=true&espn=cloud";
+
     @Given("user is on the ESPN landing page")
     public void userIsOnTheESPNLandingPage() {
 
@@ -101,7 +90,7 @@ public class EspnStepDefinitions {
     public void userEntersValidInformationInTheForm() {
         homepage.typeTheFirstName(FIRSTNAME);
         homepage.typeTheLastName(LASTNAME);
-        homepage.typeTheEmail(email);
+        homepage.typeTheEmail(EMAIL);
         homepage.typeTheNewPassword(PASSWORD);
         homepage.scrollToBottom();
     }
@@ -126,9 +115,9 @@ public class EspnStepDefinitions {
         homepage.clickOnLogInOption();
         homepage.switchToLoginIframe();
         homepage.clickOnUsername();
-        homepage.typeTheUsername(email);
+        homepage.typeTheUsername(EMAIL);
         homepage.clickOnPassword();
-        homepage.typeThePassword(this.PASSWORD);
+        homepage.typeThePassword(PASSWORD);
         homepage.clickOnSubmitButton();
     }
 
@@ -168,12 +157,14 @@ public class EspnStepDefinitions {
         watchpage.clickOnCloseModalButton();
 
     }
+
     @Then("the card modal disappears")
     public void theCardModalDisappears() {
         log.info("Validate card modal is not displayed");
         Assert.assertFalse(watchpage.isCardModalDisplayed(), "card modal is displayed");
         homepage = watchpage.goBackToHomePage();
     }
+
     @And("user clicks on log out")
     public void userClicksOnLogOut() {
         homepage.hoverTheMouseOnUserIcon();
@@ -181,6 +172,7 @@ public class EspnStepDefinitions {
         homepage.clickOnLogOutOption();
         homepage.waitForLogOut();
     }
+
     @Then("the username disappears")
     public void theUsernameDisappears() {
         homepage.hoverTheMouseOnUserIcon();
