@@ -54,4 +54,8 @@ public class TutorialScreen extends BaseScreen {
         tap(allowAccessWhileUsingAppBtn);
         return new DashboardScreen(driver);
     }
+    public DashboardScreen loadDashBoardScreen() {
+        this.startPermissionsProcess();
+        return this.shareLocationPermissions();
+    }
 }

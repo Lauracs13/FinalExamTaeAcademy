@@ -23,7 +23,7 @@ public class PrivacyAndLegalScreen extends BaseScreen {
         super(driver);
     }
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*txt_element\")")
+    @AndroidFindBy(id = "txt_element")
     private ArrayList<AndroidElement> privacyAndLegalElements;
     @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*panel_container\")")
     private AndroidElement privacyAndLegalContainer;

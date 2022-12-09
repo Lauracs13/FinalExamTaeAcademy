@@ -27,32 +27,14 @@ public class EspnStepDefinitions {
     private static String email = "prueba.perez9256@email.com";
 
     private EspnWebDriver driver;
-    public HomePage homepage;
+    public HomePage homepage = WebHooks.getHomePage();
     public WatchPage watchpage;
 
     private final String URL = "https://www.espnqa.com/?src=com&_adblock=true&espn=cloud";
-
-    @Before
-    public void setUpBefore(Scenario scenario){
-        scenario.getSourceTagNames().stream().forEach(tag -> {
-            if (tag.equals("@web")) {
-        driver = new EspnWebDriver();
-        driver.getDriver().manage().deleteAllCookies();
-        driver.getDriver().get(URL);
-        driver.getDriver().manage().window().maximize();
-        homepage = new HomePage(driver.getDriver());
-            }
-        });
-    }
-
-    @After
-    public void tearDown() {
-        driver.getDriver().quit();
-    }
     @Given("user is on the ESPN landing page")
     public void userIsOnTheESPNLandingPage() {
 
-    homepage.closePromoBannerIfExists();
+        homepage.closePromoBannerIfExists();
     }
 
     @Given("user sees the dropdown user menu")
@@ -62,7 +44,7 @@ public class EspnStepDefinitions {
 
     @When("user clicks on the login option")
     public void userClicksOnTheLoginOption() {
-       homepage.clickOnLogInOption();
+        homepage.clickOnLogInOption();
         homepage.switchToLoginIframe();
     }
 
@@ -205,6 +187,4 @@ public class EspnStepDefinitions {
         log.info("Validate the element 'Nav text' do not have the username");
         Assert.assertEquals(homepage.navText(), "Welcome!", "the element 'Nav text' still has the username");
     }
-
-
 }
