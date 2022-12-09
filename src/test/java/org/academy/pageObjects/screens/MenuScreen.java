@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The Menu screen.
+ * The Menu screen class.
  */
 public class MenuScreen extends BaseScreen {
 
     /**
-     * Instantiates a new Menu screen.
+     * Constructor method.
      *
      * @param driver the driver
      */

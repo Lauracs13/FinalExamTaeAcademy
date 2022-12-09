@@ -8,10 +8,21 @@ import org.academy.utils.web.EspnWebDriver;
 
 import static org.academy.utils.mobile.StringUtils.*;
 
+/**
+ * The Web hooks.
+ */
 public class WebHooks {
     private static EspnWebDriver driver;
-        public static HomePage homepage;
+    /**
+     * The homepage instance.
+     */
+    public static HomePage homepage;
 
+    /**
+     * Set up before each scenario
+     *
+     * @param scenario the scenario
+     */
     @Before
     public void setUpBefore(Scenario scenario){
         scenario.getSourceTagNames().stream().forEach(tag -> {
@@ -25,11 +36,19 @@ public class WebHooks {
         });
     }
 
+    /**
+     * Closes the webpage after each scenario.
+     */
     @After
     public void tearDown() {
         driver.getDriver().quit();
     }
 
+    /**
+     * Gets home page.
+     *
+     * @return the home page
+     */
     public static HomePage getHomePage() {
         return homepage;
     }

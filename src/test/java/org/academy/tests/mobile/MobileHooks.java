@@ -11,6 +11,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * The Mobile hooks.
+ */
 public class MobileHooks {
 
     private static DisneyMobileDriver mobileDriver;
@@ -18,6 +21,7 @@ public class MobileHooks {
     /**
      * SetUp before to run suite of test.
      *
+     * @param scenario the scenario
      * @author Arley.Bolivar
      */
     @Before("@mobile")
@@ -46,6 +50,11 @@ public class MobileHooks {
         mobileDriver.getDriver().quit();
     }
 
+    /**
+     * Gets the android driver.
+     *
+     * @return the android driver
+     */
     public static AndroidDriver<AndroidElement> getDriver(){
         return mobileDriver.getDriver();
     }

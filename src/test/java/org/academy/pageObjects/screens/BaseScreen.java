@@ -17,6 +17,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+/**
+ * The Base screen class.
+ */
 public class BaseScreen {
     /**
      * The driver.
@@ -39,6 +42,7 @@ public class BaseScreen {
         PageFactory.initElements(new AppiumFieldDecorator(
                 driver, Duration.ofSeconds(0)), this);
     }
+
     /**
      * Gets driver.
      *
@@ -71,7 +75,6 @@ public class BaseScreen {
         } catch (InvalidSelectorException e) {
         }
     }
-
     /**
      * Wrapper for click  event specifying custom wait.
      *
@@ -84,8 +87,6 @@ public class BaseScreen {
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
-
-
     /**
      * Wrapper for click event.
      *
@@ -96,20 +97,6 @@ public class BaseScreen {
         WebDriverWait wait = new WebDriverWait(getDriver(), 15L);
         wait.until(ExpectedConditions.visibilityOf(element));
         element.click();
-    }
-
-
-    /**
-     * Wrapper for sendKeys event.
-     *
-     * @param element  : AndroidElement
-     * @param sequence : String
-     * @author Hans.Marquez
-     */
-    public void sendKeys(AndroidElement element, String sequence) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 15L);
-        wait.until(ExpectedConditions.visibilityOf(element));
-        element.sendKeys(sequence);
     }
 
     /**
